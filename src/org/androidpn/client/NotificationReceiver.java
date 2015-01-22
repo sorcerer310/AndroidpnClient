@@ -15,6 +15,7 @@
  */
 package org.androidpn.client;
 
+import android.app.KeyguardManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -68,12 +69,27 @@ public final class NotificationReceiver extends BroadcastReceiver {
             Log.d(LOGTAG, "notificationMessage=" + notificationMessage);
             Log.d(LOGTAG, "notificationUri=" + notificationUri);
 
-            Notifier notifier = new Notifier(context);
-            notifier.notify(notificationId, notificationApiKey,
+            if(NotificationReceiver.isScreenLocked(context)){
+            	Notifier notifier = new Notifier(context);
+            	notifier.notify(notificationId, notificationApiKey,
                     notificationTitle, notificationMessage, notificationUri,notificationFrom,packetId);
+            }else{
+            	Intent nintent = new Intent(context,NotificationDetailsActivity.class);
+            	nintent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            	context.startActivity(nintent);
+            }
         }
-        
-
     }
+    /**
+     * 判断是否处于锁屏状态
+     * @param c
+     * @return	返回ture为锁屏,返回flase为未锁屏
+     */
+    public final static boolean isScreenLocked(Context c) {  
+    	android.app.KeyguardManager mKeyguardManager = (KeyguardManager) c.getSystemService(c.KEYGUARD_SERVICE);  
+    	return mKeyguardManager.inKeyguardRestrictedInputMode();  
+
+    } 
+
 
 }

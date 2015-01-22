@@ -77,6 +77,7 @@ public class NotificationService extends Service {
         executorService = Executors.newSingleThreadExecutor();
         taskSubmitter = new TaskSubmitter(this);
         taskTracker = new TaskTracker(this);
+//        System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$NotificationService");
     }
 
     @Override
@@ -113,7 +114,7 @@ public class NotificationService extends Service {
         Log.d(LOGTAG, "deviceId=" + deviceId);
 
         xmppManager = new XmppManager(this);
-        //将xmppManager对象放入全局变量中，方便其他地方使用
+        //锟斤拷xmppManager锟斤拷锟斤拷锟斤拷锟饺拷直锟斤拷锟斤拷校锟斤拷锟斤拷锟斤拷锟斤拷锟截凤拷使锟斤拷
         Constants.xmppManager = xmppManager;
         taskSubmitter.submit(new Runnable() {
             public void run() {
